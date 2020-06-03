@@ -150,4 +150,54 @@ public class BowlingMatchTest {
     assertEquals(5, match.getRoundScore(2));
   }
 
+
+  @Test
+  void should_have_round10_score_equal_20_plus_bonus_throw_when_record_throw_given_round10_first_and_second_throws_are_strike_then_throw_again() {
+    // Arrange
+    BowlingMatch match = new BowlingMatch();
+    for(int i=0; i<9; i++) {
+      match.recordThrow(10);
+    }
+
+    // Act
+    match.recordThrow(10);
+    match.recordThrow(10);
+    match.recordThrow(5);
+
+    // Assert
+    assertEquals(20 + 5, match.getRoundScore(10));
+  }
+
+  @Test
+  void should_have_round10_score_equal_10_plus_bonus_throw_when_record_throw_given_round10_second_throw_spare_then_throw_again() {
+    // Arrange
+    BowlingMatch match = new BowlingMatch();
+    for(int i=0; i<9; i++) {
+      match.recordThrow(10);
+    }
+
+    // Act
+    match.recordThrow(6);
+    match.recordThrow(4);
+    match.recordThrow(5);
+
+    // Assert
+    assertEquals(10 + 5, match.getRoundScore(10));
+  }
+
+  @Test
+  void should_have_round10_score_equal_sum_of_both_throws_when_record_throw_given_round10_is_neither_strike_or_spare() {
+    // Arrange
+    BowlingMatch match = new BowlingMatch();
+    for(int i=0; i<9; i++) {
+      match.recordThrow(10);
+    }
+
+    // Act
+    match.recordThrow(7);
+    match.recordThrow(1);
+
+    // Assert
+    assertEquals(7 + 1, match.getRoundScore(10));
+  }
 }
