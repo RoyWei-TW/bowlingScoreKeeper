@@ -200,4 +200,16 @@ public class BowlingMatchTest {
     // Assert
     assertEquals(7 + 1, match.getRoundScore(10));
   }
+
+  @Test
+  void should_be_perfect_score_300_when_record_throw_given_12_strikes_in_the_row() {
+    // Arrange
+    BowlingMatch match = new BowlingMatch();
+    for(int i=0; i<12; i++) {
+      match.recordThrow(10);
+    }
+
+    // Assert
+    assertEquals(300, match.getTotalScore());
+  }
 }

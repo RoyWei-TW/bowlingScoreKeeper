@@ -11,3 +11,4 @@
 10. Given round 10 first throw strike, second throw strike, when record throw, round 10 score should be 20 plus bonus throw
 11. Given round 10 second throw spare, when record throw, round 10 score should be 10 plus bonus throw
 12. Given round 10 no strike or spare, when record throw, round 10 score should be the sum of both throws
+13. Given player had all strikes (10 + 2) through out the game, when record throw, total score should be perfect 300
