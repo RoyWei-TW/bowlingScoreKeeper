@@ -19,4 +19,46 @@ public class BowlingMatchTest {
     assertEquals(7, match.getRoundScore(1));
     assertEquals(7, match.getTotalScore());
   }
+
+  @Test
+  void should_have_round1_and_total_score_equal_10_when_record_throw_given_round1_is_strike() {
+    // Arrange
+    BowlingMatch match = new BowlingMatch();
+
+    // Act
+    match.recordThrow(10);
+
+    // Assert
+    assertEquals(10, match.getRoundScore(1));
+    assertEquals(10, match.getTotalScore());
+  }
+
+  @Test
+  void should_have_round1_and_total_score_equal_10_when_record_throw_given_round1_is_spare() {
+    // Arrange
+    BowlingMatch match = new BowlingMatch();
+
+    // Act
+    match.recordThrow(7);
+    match.recordThrow(3);
+
+    // Assert
+    assertEquals(10, match.getRoundScore(1));
+    assertEquals(10, match.getTotalScore());
+  }
+
+  @Test
+  void should_have_round1_and_total_score_equal_9_when_record_throw_given_round1_is_not_strike_or_spare() {
+    // Arrange
+    BowlingMatch match = new BowlingMatch();
+
+    // Act
+    match.recordThrow(7);
+    match.recordThrow(2);
+
+    // Assert
+    assertEquals(9, match.getRoundScore(1));
+    assertEquals(9, match.getTotalScore());
+  }
+
 }
