@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 public class BowlingMatch {
 
-  private int totalScore;
-
   private ArrayList<Round> rounds;
 
+  private int currentRound;
+
   public BowlingMatch() {
+    currentRound = 0;
     rounds = new ArrayList<>();
     for(int i = 0; i < 10; i++) {
       rounds.add(new Round());
@@ -16,7 +17,7 @@ public class BowlingMatch {
   }
 
   public int getTotalScore() {
-    return totalScore;
+    return rounds.stream().mapToInt(round -> round.getScore()).sum();
   }
 
   public int getRoundScore(int round) {
@@ -24,7 +25,17 @@ public class BowlingMatch {
   }
 
   public void recordThrow(int score) {
-    totalScore += score;
-    rounds.get(0).recordThrow(score);
+    boolean roundFinished = rounds.get(currentRound).recordThrow(score);
+    updateStrikeOrSpare(currentRound - 1, score);
+    updateStrikeOrSpare(currentRound - 2, score);
+    if(roundFinished) {
+      currentRound++;
+    }
+  }
+
+  private void updateStrikeOrSpare(int roundIndex, int score) {
+    if(roundIndex >= 0 && roundIndex < rounds.size()) {
+      rounds.get(roundIndex).updateScoreWithNextThrow(score);
+    }
   }
 }

@@ -61,4 +61,19 @@ public class BowlingMatchTest {
     assertEquals(9, match.getTotalScore());
   }
 
+  @Test
+  void should_have_round1_equal_10_plus_round2_score_and_total_score_equal_2times_round2_score_plus_10_when_record_throw_given_round1_strike_and_round2_not_spare() {
+    // Arrange
+    BowlingMatch match = new BowlingMatch();
+
+    // Act
+    match.recordThrow(10);
+    match.recordThrow(8);
+    match.recordThrow(1);
+
+
+    // Assert
+    assertEquals(10 + 9, match.getRoundScore(1));
+    assertEquals(2 * 9 + 10, match.getTotalScore());
+  }
 }
