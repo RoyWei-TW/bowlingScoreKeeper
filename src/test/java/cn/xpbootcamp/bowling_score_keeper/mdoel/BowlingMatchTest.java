@@ -71,9 +71,83 @@ public class BowlingMatchTest {
     match.recordThrow(8);
     match.recordThrow(1);
 
-
     // Assert
     assertEquals(10 + 9, match.getRoundScore(1));
     assertEquals(2 * 9 + 10, match.getTotalScore());
   }
+
+  @Test
+  void should_have_round1_equal_10_plus_round2_first_throw_and_total_score_equal_round1_score_plus_round2_throws_when_record_throw_given_round1_spare_and_round2_not_spare() {
+    // Arrange
+    BowlingMatch match = new BowlingMatch();
+
+    // Act
+    match.recordThrow(5);
+    match.recordThrow(5);
+
+    match.recordThrow(8);
+    match.recordThrow(1);
+
+    // Assert
+    assertEquals(10 + 8, match.getRoundScore(1));
+    assertEquals(match.getRoundScore(1) + 8 + 1, match.getTotalScore());
+  }
+
+  @Test
+  void should_have_total_score_equal_all_4_throws_when_record_throw_given_round1_not_spare_and_round2_not_spare() {
+    // Arrange
+    BowlingMatch match = new BowlingMatch();
+
+    // Act
+    match.recordThrow(5);
+    match.recordThrow(3);
+
+    match.recordThrow(8);
+    match.recordThrow(1);
+
+    // Assert
+    assertEquals(5 + 3 + 8 + 1, match.getTotalScore());
+  }
+
+  @Test
+  void should_have_round1_score_equal_20_and_total_score_equal_30_when_record_throw_given_round1_strike_and_round2_strike() {
+    // Arrange
+    BowlingMatch match = new BowlingMatch();
+
+    // Act
+    match.recordThrow(10);
+    match.recordThrow(10);
+
+    // Assert
+    assertEquals(20, match.getRoundScore(1));
+    assertEquals(30, match.getTotalScore());
+  }
+
+  @Test
+  void should_have_round1_score_equal_20_plus_new_throw_when_record_throw_given_round1_strike_and_round2_strike_then_throw_again() {
+    // Arrange
+    BowlingMatch match = new BowlingMatch();
+
+    // Act
+    match.recordThrow(10);
+    match.recordThrow(10);
+    match.recordThrow(5);
+
+    // Assert
+    assertEquals(25, match.getRoundScore(1));
+  }
+
+  @Test
+  void should_have_second_throw_counted_as_round2_when_record_throw_given_round1_strike_and_then_throw_again() {
+    // Arrange
+    BowlingMatch match = new BowlingMatch();
+
+    // Act
+    match.recordThrow(10);
+    match.recordThrow(5);
+
+    // Assert
+    assertEquals(5, match.getRoundScore(2));
+  }
+
 }
